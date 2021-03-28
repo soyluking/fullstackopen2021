@@ -6,7 +6,7 @@ const Button = ({ handleClick, label }) => (
 
 const Display = ({ label, counter }) => (
   <p>
-    {label}: {counter}
+    <strong>{label}:</strong> {counter}
   </p>
 );
 
@@ -19,6 +19,10 @@ const App = () => {
   const handleClickNeutral = () => setNeutral(neutral + 1);
   const handleClickBad = () => setBad(bad + 1);
 
+  const all = good + neutral + bad;
+  const average = (good * 1 + neutral * 0 + bad * -1) / all;
+  const positive = (good * 100) / all;
+
   return (
     <div>
       <h1>Give feedback</h1>
@@ -29,6 +33,9 @@ const App = () => {
       <Display label='Good' counter={good} />
       <Display label='Neutral' counter={neutral} />
       <Display label='Bad' counter={bad} />
+      <Display label='All' counter={all} />
+      <Display label='Average' counter={average || 0} />
+      <Display label='Positive' counter={`${positive || 0}%`} />
     </div>
   );
 };
