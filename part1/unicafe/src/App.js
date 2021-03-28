@@ -10,6 +10,17 @@ const Display = ({ label, counter }) => (
   </p>
 );
 
+const Statistics = ({ statistics }) => {
+  return (
+    <div>
+      <h2>Statistics</h2>
+      {statistics.map(item => (
+        <Display label={item.label} counter={item.value} key={item.label} />
+      ))}
+    </div>
+  );
+};
+
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -23,19 +34,40 @@ const App = () => {
   const average = (good * 1 + neutral * 0 + bad * -1) / all;
   const positive = (good * 100) / all;
 
+  const statistics = [
+    {
+      label: 'Good',
+      value: good,
+    },
+    {
+      label: 'Neutral',
+      value: neutral,
+    },
+    {
+      label: 'Bad',
+      value: bad,
+    },
+    {
+      label: 'All',
+      value: all,
+    },
+    {
+      label: 'Average',
+      value: average || 0,
+    },
+    {
+      label: 'Positive',
+      value: `${positive || 0}%`,
+    },
+  ];
+
   return (
     <div>
       <h1>Give feedback</h1>
       <Button handleClick={handleClickGood} label='Good' />
       <Button handleClick={handleClickNeutral} label='Neutral' />
       <Button handleClick={handleClickBad} label='Bad' />
-      <h2>Statistics</h2>
-      <Display label='Good' counter={good} />
-      <Display label='Neutral' counter={neutral} />
-      <Display label='Bad' counter={bad} />
-      <Display label='All' counter={all} />
-      <Display label='Average' counter={average || 0} />
-      <Display label='Positive' counter={`${positive || 0}%`} />
+      <Statistics statistics={statistics} />
     </div>
   );
 };
