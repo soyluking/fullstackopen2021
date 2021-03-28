@@ -4,9 +4,9 @@ const Button = ({ handleClick, label }) => (
   <button onClick={handleClick}>{label}</button>
 );
 
-const Display = ({ label, counter }) => (
+const Statistic = ({ label, value }) => (
   <p>
-    <strong>{label}:</strong> {counter}
+    <strong>{label}:</strong> {value}
   </p>
 );
 
@@ -15,12 +15,12 @@ const Statistics = ({ statistics }) => {
   return (
     <div>
       <h2>Statistics</h2>
-      <Display label='Good' counter={statistics.good} />
-      <Display label='Neutral' counter={statistics.neutral} />
-      <Display label='Bad' counter={statistics.bad} />
-      <Display label='All' counter={statistics.all} />
-      <Display label='Average' counter={statistics.average} />
-      <Display label='Positive' counter={`${statistics.positive}%`} />
+      <Statistic label='Good' value={statistics.good} />
+      <Statistic label='Neutral' value={statistics.neutral} />
+      <Statistic label='Bad' value={statistics.bad} />
+      <Statistic label='All' value={statistics.all} />
+      <Statistic label='Average' value={statistics.average} />
+      <Statistic label='Positive' value={`${statistics.positive}%`} />
     </div>
   );
 };
