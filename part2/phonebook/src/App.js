@@ -2,10 +2,20 @@ import { useState } from 'react';
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '+56993949422' },
+    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' },
   ]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
+  const [keyword, setKeyword] = useState('');
+
+  const filteredPersons = !keyword
+    ? persons
+    : persons.filter(person =>
+        person.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase()),
+      );
 
   const handleAddPerson = event => {
     event.preventDefault();
@@ -29,10 +39,20 @@ const App = () => {
 
   const handleNewName = ({ target }) => setNewName(target.value);
   const handleNewNumber = ({ target }) => setNewNumber(target.value);
+  const handleSetKeyword = ({ target }) => {
+    setKeyword(target.value);
+  };
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
+      Search contact: <input value={keyword} onChange={handleSetKeyword} />
+      <h2>Contacts list</h2>
+      {filteredPersons.map(person => (
+        <p key={person.name}>{person.name}</p>
+      ))}
+      <hr />
+      <h2>Add new contact</h2>
       <form onSubmit={handleAddPerson}>
         <div>
           Name: <input value={newName} onChange={handleNewName} />
@@ -42,10 +62,6 @@ const App = () => {
           <button type='submit'>add</button>
         </div>
       </form>
-      <h2>Numbers</h2>
-      {persons.map(person => (
-        <p key={person.name}>{person.name}</p>
-      ))}
     </div>
   );
 };
