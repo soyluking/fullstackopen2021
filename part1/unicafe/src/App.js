@@ -11,12 +11,16 @@ const Display = ({ label, counter }) => (
 );
 
 const Statistics = ({ statistics }) => {
+  if (statistics.all === 0) return <p>No feedback given</p>;
   return (
     <div>
       <h2>Statistics</h2>
-      {statistics.map(item => (
-        <Display label={item.label} counter={item.value} key={item.label} />
-      ))}
+      <Display label='Good' counter={statistics.good} />
+      <Display label='Neutral' counter={statistics.neutral} />
+      <Display label='Bad' counter={statistics.bad} />
+      <Display label='All' counter={statistics.all} />
+      <Display label='Average' counter={statistics.average} />
+      <Display label='Positive' counter={`${statistics.positive}%`} />
     </div>
   );
 };
@@ -34,32 +38,14 @@ const App = () => {
   const average = (good * 1 + neutral * 0 + bad * -1) / all;
   const positive = (good * 100) / all;
 
-  const statistics = [
-    {
-      label: 'Good',
-      value: good,
-    },
-    {
-      label: 'Neutral',
-      value: neutral,
-    },
-    {
-      label: 'Bad',
-      value: bad,
-    },
-    {
-      label: 'All',
-      value: all,
-    },
-    {
-      label: 'Average',
-      value: average || 0,
-    },
-    {
-      label: 'Positive',
-      value: `${positive || 0}%`,
-    },
-  ];
+  const statistics = {
+    good,
+    neutral,
+    bad,
+    all,
+    average,
+    positive,
+  };
 
   return (
     <div>
