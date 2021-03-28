@@ -7,6 +7,13 @@ const App = () => {
   const handleAddPerson = event => {
     event.preventDefault();
 
+    const personExistOnPhoneBook = persons.find(
+      person => person.name === newName,
+    );
+
+    if (personExistOnPhoneBook)
+      return alert(`${newName} is already added to phonebook`);
+
     const personAdded = {
       name: newName,
     };
