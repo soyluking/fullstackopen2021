@@ -12,7 +12,9 @@ const App = () => {
       .then(({ data }) => setCountries(data));
   }, []);
 
-  const handleChangeKeyword = ({ target }) => setKeyword(target.value);
+  const handleChangeKeyword = event =>
+    setKeyword(event?.target?.value || event);
+
   const filteredCountries = !keyword
     ? countries
     : countries.filter(country =>
@@ -25,7 +27,10 @@ const App = () => {
         <label>Find countries: </label>
         <input type='text' value={keyword} onChange={handleChangeKeyword} />
       </div>
-      <Countries countries={filteredCountries} />
+      <Countries
+        countries={filteredCountries}
+        onShowClick={handleChangeKeyword}
+      />
     </div>
   );
 };
